@@ -22,10 +22,10 @@ Observe que para valores a baixo de 700 hz o buzzer possui baixo ganho e na prá
 A biblioteca inclui as seguintes funcionalidades:
 
 - **Inicialização do PWM para o buzzer** (`pwm_init_buzzer(pin)`): Configura o PWM no pino especificado para controlar o buzzer.
-- **Reprodução de um tom específico** (`play_tone2(pin, frequency, duration_ms)`): Configura o PWM para tocar uma nota com a frequência e duração especificadas.
+- **Reprodução de um tom específico** (`play_tone(pin, frequency, duration_ms)`): Configura o PWM para tocar uma nota com a frequência e duração especificadas.
 - **Sequenciamento de notas para reprodução de músicas** (`check_and_play_next_note(pin)`): Gerencia a reprodução automática de uma sequência de notas musicais, garantindo a temporização correta.
 
-  **Obs: Nenhuma das funções utiliza de delays que param a CPU**
+  **Obs: A função (`check_and_play_next_note(pin)`) não utiliza de delays que param a CPU, mas é importante que ela esteja dentro de uma estrutura de repetição que a chame em períodos curtos, na ordem de 0.1 ms até 5 ms.**
   
 ## Como Usar a Biblioteca
 
@@ -41,7 +41,7 @@ A biblioteca inclui as seguintes funcionalidades:
    ```
 3. **Toque uma nota específica:**
    ```c
-   play_tone2(BUZZER_PIN_A, 1319, 300); // Toca a nota de 1319 Hz por 300 ms
+   play_tone(BUZZER_PIN_A, 1319, 300); // Toca a nota de 1319 Hz por 300 ms
    ```
 4. **Reproduza uma sequência de notas automaticamente:**
    ```c
