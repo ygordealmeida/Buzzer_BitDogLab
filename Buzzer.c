@@ -33,6 +33,18 @@ void pwm_init_buzzer(uint pin) {
     pwm_set_gpio_level(pin, 0);  // Desliga o PWM inicialmente
 }
 
+void play_tone(uint pin, uint frequency, uint duration_ms){
+    uint slice_num = pwm_gpio_to_slice_num(pin);
+    uint32_t clock_freq = clock_get_hz(clk_sys)/CLK_DIV;
+    uint32_t top = clock_freq / frequency - 1;
+    pwm_set_wrap(slice_num, top);
+    sleep_ms(duration_ms);
+    pwm_set_gpio_level(pin, top / 2); // 50% de duty cycle
+    sleep_ms(15);
+}
+
+
+
 void play_tone2(uint pin, uint frequency, uint duration_ms){
     uint slice_num = pwm_gpio_to_slice_num(pin);
     uint32_t clock_freq = clock_get_hz(clk_sys)/CLK_DIV;
